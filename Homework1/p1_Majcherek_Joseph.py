@@ -22,7 +22,7 @@ def main():
             x_max = x_center + 5.0
         elif discriminant == 0:
             x1 = -b / (2 * a)
-            print(f"one solution: {0:.5f}")
+            print(f"one solution: {x1:.5f}")
             x_min = x1 - 4.0
             x_max = x1 + 4.0
         else:
@@ -42,19 +42,19 @@ def main():
         xs = []
         ys = []
         for i in range(num_points):
-            x_val = x_min + 1 * step
+            x_val = x_min + i * step
             y_val = a * (x_val**2) + b * x_val + c
             xs.append(x_val)
             ys.append(y_val)
 
-    # plot curve using matplotlib.pyplot
-    plt.figure()
-    plt.plot(xs, ys, "b.-")
-    plt.xlabel("x")
-    plt.ylabel("y")
-    plt.title(f"y = {a}x^2 + {b}x + {c}")
-    plt.grid(True)
-    plt.show()
+        # plot curve using matplotlib.pyplot
+        plt.figure()
+        plt.plot(xs, ys, "b.-")
+        plt.xlabel("x")
+        plt.ylabel("y")
+        plt.title(f"y = {a}x^2 + {b}x + {c}")
+        plt.grid(True)
+        plt.show()
 
 if __name__ == "__main__":
     main()

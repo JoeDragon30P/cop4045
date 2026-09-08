@@ -30,7 +30,7 @@ def main():
     fun_str = input("Enter function with variable x: ")
     ns = int(input("Enter number of samples: "))
     xmin = float(input("Enter xmin: "))
-    xmax = float(input("Enter xmax:"))
+    xmax = float(input("Enter xmax: "))
 
     plot_function(fun_str, (xmin, xmax), ns)
 
