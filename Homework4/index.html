@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comment Board</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+        .form-section {
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-radius: 5px;
+            margin-bottom: 30px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #555;
+        }
+        input[type="text"],
+        textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-family: Arial, sans-serif;
+            box-sizing: border-box;
+        }
+        textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+        input[type="text"]:focus,
+        textarea:focus {
+            outline: none;
+            border-color: #4CAF50;
+            box-shadow: 0 0 5px rgba(76, 175, 80, 0.3);
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .comments-section h2 {
+            color: #333;
+            margin-top: 30px;
+            border-bottom: 2px solid #4CAF50;
+            padding-bottom: 10px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        thead {
+            background-color: #4CAF50;
+            color: white;
+        }
+        th {
+            padding: 12px;
+            text-align: left;
+            font-weight: bold;
+        }
+        td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+        tr:hover {
+            background-color: #f5f5f5;
+        }
+        .no-comments {
+            text-align: center;
+            padding: 20px;
+            color: #999;
+            font-style: italic;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #ddd;
+            color: #666;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🗨️ Comment Board{% if username %} - Hello {{ username }} !{% endif %}</h1>
+        
+        <div class="form-section">
+            <h2>Post a Comment</h2>
+            <form method="POST" action="/">
+                <div class="form-group">
+                    <label for="username">User Name:</label>
+                    <input type="text" id="username" name="username" required 
+                           value="{{ username }}" placeholder="Enter your name">
+                </div>
+                
+                <div class="form-group">
+                    <label for="hashtags">Hashtags:</label>
+                    <input type="text" id="hashtags" name="hashtags" 
+                           placeholder="e.g., #NBA #Heat #Sports">
+                </div>
+                
+                <div class="form-group">
+                    <label for="comment">Comment:</label>
+                    <textarea id="comment" name="comment" required 
+                              placeholder="Enter your comment here..."></textarea>
+                </div>
+                
+                <button type="submit">Post Comment</button>
+            </form>
+        </div>
+        
+        <div class="form-section">
+            <h2>Search Comments</h2>
+            <form method="GET" action="/search">
+                <div class="form-group">
+                    <label for="search_text">Enter search text:</label>
+                    <input type="text" id="search_text" name="search_text"
+                           placeholder="e.g., #NBA, #Heat, or keyword...">
+                </div>
+
+                <div class="form-group">
+                    <label for="author">Author:</label>
+                    <input type="text" id="author" name="author"
+                           placeholder="e.g., Alice">
+                </div>
+                
+                <button type="submit">Search</button>
+            </form>
+        </div>
+        
+        <div class="comments-section">
+            <h2>Recent Comments</h2>
+            {% if comments %}
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Username</th>
+                            <th>Hashtags</th>
+                            <th>Comment</th>
+                            <th>Timestamp</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for comment in comments %}
+                            <tr>
+                                <td>{{ comment.Username }}</td>
+                                <td>{{ comment.Hashtags if comment.Hashtags else '-' }}</td>
+                                <td>{{ comment.Comment }}</td>
+                                <td>{{ comment.Timestamp }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <div class="no-comments">No comments yet. Be the first to post!</div>
+            {% endif %}
+        </div>
+        
+        <div class="footer">
+            Program author: Joseph Majcherek
+        </div>
+    </div>
+</body>
+</html>
